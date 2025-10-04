@@ -1,0 +1,34 @@
+{% extends 'shopapp/base.html'%}
+{% load cache%}
+
+{% block title %}
+     Orders of {{ owner.get_full_name|default:owner.username }}
+{% endblock %}
+
+{% block body1 %}
+    {% if orders %}
+        <h2>Пользователь {{ owner.get_full_name|default:owner.username }} выполнил следующие заказы</h2>
+        {% cache 15 orders_info owner.pk %}
+            {% for order in orders %}
+
+                <p>
+                   <a href="{% url 'shopapp:order_details' pk=order.pk %}"> Order # {{ order.pk }}</a>
+                </p>
+                <p>Delivery address: {{ order.delivery_address }}</p>
+                <p>Promo code: {{ order.promo|default:"No promo" }}</p>
+                <p>Created at: {{ order.created_at }}</p>
+                <div>Products in order:</div>
+                <ul>
+                    {% for product in order.products.all %}
+                    <li>{{ product.name|capfirst }}</li>
+                    {% endfor %}
+                </ul>
+
+            {% endfor %}
+        {% endcache %}
+
+    {% else %}
+        <h2>У пользователя {{ owner.get_full_name|default:owner.username }} ещё нет заказов</h2>
+    {% endif %}
+
+{% endblock %}

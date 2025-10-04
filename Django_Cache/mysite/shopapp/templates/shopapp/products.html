@@ -1,0 +1,33 @@
+{% extends 'shopapp/base.html'%}
+
+{% block title %}
+    Products
+{% endblock %}
+
+{% block body1 %}
+    <h1>Products in shop</h1>
+
+    <div>
+
+    <ul>
+        {% for product in list_products %}
+
+            {% if product.archived == False %}
+                <li><a href="{% url 'shopapp:products_details' pk=product.pk %}">{{ product.name|capfirst }}</a> for {{ product.price }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    </div>
+
+    <div>
+        <p>
+            {% if perms.shopapp.add_product or request.user.is_superuser %}
+                <a href="{% url 'shopapp:create_product' %}"> Add products</a>
+            {% endif %}
+            <br>
+            <a href="{% url 'shopapp:orders' %}"> All orders</a>
+        </p>
+    </div>
+
+{% endblock %}

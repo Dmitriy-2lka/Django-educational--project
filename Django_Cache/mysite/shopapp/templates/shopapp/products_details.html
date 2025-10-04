@@ -1,0 +1,59 @@
+{% extends 'shopapp/base.html'%}
+
+{% load i18n %}
+
+{% block title %}
+    Product # {{ product.pk }}
+{% endblock %}
+
+{% block body1 %}
+    <h1>{% translate 'Product' %} {{ product.name }}</h1>
+
+    <div>
+        {% blocktranslate with description=product.description price=product.price %}
+            <div>Description: {{ description }}</div>
+            <div>Price: {{ price }}</div>
+        {% endblocktranslate  %}
+        <div>
+            {% blocktranslate count discount=product.discount %}
+                Discount: {{ discount }} percent
+            {% plural %}
+                Discount: {{ discount }} percent
+            {% endblocktranslate %}
+        </div>
+    </div>
+
+    <div>
+        <p>
+
+                {% if perms.shopapp.add_product or request.user.is_superuser %}
+                    {% url 'shopapp:create_product' as url_create_product %}
+                    {% blocktranslate  %}
+                        <a href= '{{ url_create_product }}'> Add product</a>
+                    {% endblocktranslate  %}
+                {% endif %}
+                <br>
+                <br>
+                    {% url 'shopapp:products' as url_products %}
+                    {% blocktranslate  %}
+                        <a href="{{ url_products }}"> All products</a>
+                    {% endblocktranslate  %}
+                <br>
+                {% if perms.shopapp.change_product and user == product.created_by or request.user.is_superuser %}
+                    {% url 'shopapp:products_update' pk=product.pk as url_products_update %}
+                    {% blocktranslate  %}
+                        <a href="{{ url_products_update }}"> Update product</a>
+                    {% endblocktranslate  %}
+                {% endif %}
+                <br>
+                {% if perms.shopapp.delete_product and user == product.created_by or request.user.is_superuser %}
+                    {% url 'shopapp:product_delete' pk=product.pk as url_product_delete %}
+                    {% blocktranslate  %}
+                        <a href="{{ url_product_delete }}"> Delete product</a>
+                    {% endblocktranslate  %}
+                {% endif %}
+
+        </p>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+[
+  {
+    "model": "shopapp.product",
+    "pk": 1,
+    "fields": {
+      "name": "Grape",
+      "description": "white grape",
+      "price": "55.00",
+      "discount": 0,
+      "creation_date": "2025-08-06T20:10:46.070Z",
+      "archived": false,
+      "created_by": 4
+    }
+  },
+  {
+    "model": "shopapp.product",
+    "pk": 2,
+    "fields": {
+      "name": "Orange",
+      "description": "orange orange from morocco",
+      "price": "20.00",
+      "discount": 5,
+      "creation_date": "2025-08-06T20:21:39.607Z",
+      "archived": false,
+      "created_by": 3
+    }
+  },
+  {
+    "model": "shopapp.product",
+    "pk": 3,
+    "fields": {
+      "name": "Apple",
+      "description": "apples from my garden",
+      "price": "12.00",
+      "discount": 0,
+      "creation_date": "2025-08-06T20:30:06.128Z",
+      "archived": false,
+      "created_by": 5
+    }
+  }
+]

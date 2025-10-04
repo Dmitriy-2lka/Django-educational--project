@@ -1,0 +1,25 @@
+{% extends 'myauth/base.html'%}
+
+{% block title %}
+    Update Avatar
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>Upload Avatar for {{ profile_detail.user.username }}</h1>
+        <form method="post" enctype="multipart/form-data">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <br>
+         <button type="submit">
+           Upload
+         </button>
+    </div>
+    <br>
+    <a href="{% url 'myauth:list_users' %}">List users</a>
+    <br>
+    <br>
+    <a href="{% url 'myauth:user_details' pk=profile_detail.user.pk %}">Back to {{ profile_detail.user.username }}</a>
+{% endblock %}
+
+

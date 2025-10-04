@@ -1,0 +1,25 @@
+{% extends 'shopapp/base.html'%}
+
+{% block title %}
+    Update order # {{ object.pk }}
+{% endblock %}
+
+{% block body1 %}
+    <h1>Update order # {{ object.pk }}</h1>
+
+    <div>
+        <form method="post">
+        {% csrf_token %}
+                {{ form.as_p }}
+            <br>
+        <button type="submit">
+            Update
+        </button>
+        </form>
+    </div>
+
+    <div>
+        <br>
+        <a href="{% url 'shopapp:order_details' pk=object.pk %}"> Back to order {{ object.pk }}</a>
+    </div>
+{% endblock %}

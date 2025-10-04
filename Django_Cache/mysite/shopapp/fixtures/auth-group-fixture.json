@@ -1,0 +1,28 @@
+[
+  {
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+      "name": "shop_group",
+      "permissions": [
+        25,
+        26,
+        27,
+        28
+      ]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+      "name": "orders-group",
+      "permissions": [
+        29,
+        30,
+        31,
+        32
+      ]
+    }
+  }
+]
