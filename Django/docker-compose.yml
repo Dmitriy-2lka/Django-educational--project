@@ -1,13 +1,13 @@
 services:
-  web:
+  app:
     build: .
     container_name: mysite_docker
     volumes:
-      - .:/app
+      - ./mysite/database:/app/database
     ports:
       - "8000:8000"
-    networks:
-      - app-network
+#    networks:
+#      - app-network
     command:
       - 'gunicorn'
       - 'mysite.wsgi:application'
@@ -16,33 +16,34 @@ services:
     env_file:
       - .env
     logging:
-      driver: loki
+      driver: 'json-file'
       options:
-        loki-url: http://localhost:3100/loki/api/v1/push
+        max-file: '5'
+        max-size: '500k'
     restart:
       always
-
-
-  grafana:
-    image: grafana/grafana:12.1.1
-    networks:
-      - app-network
-    environment:
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-    ports:
-      - "3000:3000"
-
-  loki:
-    image: grafana/loki:3.5.0
-    networks:
-      - app-network
-    ports:
-      - "3100:3100"
-
-networks:
-  app-network:
-    driver: bridge
+#
+#
+#  grafana:
+#    image: grafana/grafana:12.1.1
+#    networks:
+#      - app-network
+#    environment:
+#      - GF_AUTH_ANONYMOUS_ENABLED=true
+#      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+#    ports:
+#      - "3000:3000"
+#
+#  loki:
+#    image: grafana/loki:3.5.0
+#    networks:
+#      - app-network
+#    ports:
+#      - "3100:3100"
+#
+#networks:
+#  app-network:
+#    driver: bridge
 
 volumes:
   pgdata:
