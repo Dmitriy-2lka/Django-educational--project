@@ -2,6 +2,7 @@
 name = "django_project"
 version = "0.1.0"
 description = ""
+package-mode = false
 authors = [
     {name = "Dmitriy Tulskiy",email = "tulskiidima@mail.ru"}
 ]
